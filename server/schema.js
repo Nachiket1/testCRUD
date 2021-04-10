@@ -1,15 +1,20 @@
 const  mongoose = require("mongoose");
 
-// const { Schema } = mongoose;
-// const listSchema = new Schema;
-// is equivalent to
-
-const listSchema = new mongoose.Schema({
-    text: {type : String, required: true},
-    status: {type: Boolean, default: false}
+const userSchema = new mongoose.Schema({
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true }
 });
 
-const List = mongoose.model('list', listSchema);
-module.exports = List
-// is equivalent to
-// module.exports = mongoose.model('list', listSchema);
+const taskSchema = new mongoose.Schema({
+    text: { type : String, required: true },
+    status: { type: Boolean, default: false },
+    userId: { type: String }
+});
+
+const User = mongoose.model('users', userSchema);
+const Task = mongoose.model('tasks', taskSchema);
+
+module.exports = {
+    Task, 
+    User
+};
