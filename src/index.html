@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Hello 42</h2>
+    <!-- DIV TO RENDER TODO LIST-->
+    <div class="messages"></div>
+
+    <!-- TEXT INPUT POST (DEPRECIATED METHOD) --> 
+    <!-- <div class="content">
+      <form method="POST" action="/list">
+        <input name="text"></input>
+        <button type="submit">Submit</button>
+      </form>
+    </div> -->
+    <!-- IS EQUIVALENT TO -->
+    <div class="content">
+      <form id="form">
+        <input name="text" id="text"></input>
+        <button type="submit" id="submit">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      const fetchData = (body) => {
+        return ({
+          method: 'POST',
+          body: JSON.stringify({ text: body }),
+          headers: {'Content-Type' : 'application/json'},
+        })
+      }
+      const fetchPost = fetch('/list', fetchData(document.getElementById("text").value))
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('Successfully POSTed text input');
+          console.log('res.locals.data from the backend is: ', data);
+        })
+        .catch((err) => console.log('There was a problem with POSTing text input: ', err))
+
+      Document.getElementById("submit").addEventListener('click', fetchPost)
+
+    </script>
+</body>
+</html>
